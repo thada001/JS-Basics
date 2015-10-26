@@ -25,8 +25,7 @@ var callFriend = function(){
   var friend = 'Jake';
   return function(number){
     return 'Calling ' + friend + ' at ' + number;
-  }
-  return callF;
+  };
 };
 
 //Above you're given a callFriend function that returns another function.
@@ -66,17 +65,20 @@ count();
   Write a function that does something simple (console, alert, etc). Write a second function that accepts the first function as it's first parameter. The second function should return a new third function which, when invoked, invokes the first, original function that was passed in, but will only ever do so once.
 */
 
-function first() {
+var first = function() {
   console.log('hi');
 }
 var second = function(a){
-  var x = 1;
+  var x = false;
   return function(){
-    a;
-  }
+    if(!x) {
+      a();
+      x = true;
+    }else {return "no";}
+    
+  };
 }
-var c = second(first());
-c()
+var c = second(first);
 
 //Next Problem
 
@@ -96,6 +98,11 @@ var fnCounter = function(a, N){
 var b = fnCounter(function(){console.log("hi");}, 3);
 b
 
+//or
+
+var dummyFn = function(){return "This";};
+var fnCounter = function;
+//Runs separately but only 3 times
 //Next Problem
 
 
@@ -130,6 +137,14 @@ var counter = function(){
   for (var i = 1; i <=5; i++) {
     timer(i);
   };
+}
+
+//or
+
+var counter = function(){
+  for(var i = 1; i <=5; i++){
+    setTimeout(function(x){return function(){console.log(x);};}(i), i*1000);
+  }
 }
 //Next Problem
 
